@@ -20,6 +20,12 @@
           href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css"/>
     <link rel='stylesheet'
           href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
+    <style>
+        label {
+            display: block;
+        }
+    </style>
+
     <title>Каталог</title>
 </head>
 <body>
@@ -33,7 +39,10 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <button class="btn btn-primary m-1 float-right">
+            <button type="button"
+                    class="btn btn-primary m-1 float-right"
+                    data-toggle="modal"
+                    data-target="#exampleModal">
                 <i class="far fa-file-alt"></i>&nbsp;&nbsp;
                 Добавить товар
             </button>
@@ -42,6 +51,7 @@
         </div>
     </div>
     <hr class="mt-3">
+    <!--    Table-->
     <div class="row">
         <div class="col-lg-12">
             <div class="table-responsive"
@@ -62,7 +72,7 @@
                         <td>1</td>
                         <td>2</td>
                         <td>3</td>
-                        <td>4</td>
+                        <td>4 руб</td>
                         <td>5</td>
                         <td>
 
@@ -87,7 +97,75 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade"
+     id="exampleModal"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog"
+         role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    id="exampleModalLabel">Добавить товар</h5>
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post"
+                      id="form-data">
+                    <div class="form-group">
+                        <label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="name"
+                                   value=""
+                                   placeholder="Название товара">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="description"
+                                   value=""
+                                   placeholder="Описание товара">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="name"
+                                   value=""
+                                   placeholder="Цена товара">
+                        </label>
+                    </div>
+                    <div class="form-group">
 
+                        <button type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal">Закрыть
+                        </button>
+                        <button type="submit"
+                                id="inset"
+                                name="inset"
+                                class="btn btn-primary">Сохранить
+                        </button>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -102,7 +180,7 @@
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
 <script>
-    $(document).ready( function () {
+    $(document).ready(function () {
         $('table').DataTable(
             {
                 "language": {
@@ -137,7 +215,7 @@
             }
         );
 
-    } );
+    });
 </script>
 </body>
 
