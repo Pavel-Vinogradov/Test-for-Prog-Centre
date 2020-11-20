@@ -5,11 +5,13 @@ $db = new dbConfig();
 //echo 'test <br>';
 
 ## check $_POST
-if (isset($_POST['action']) && ($_POST['action'] == 'view')) {
-    $output = '';
-    $data = $db->read();
-    if ($db->rowCount() > 0) {
-        $output .= '       <table class="table-sm table-bordered table table-striped">
+
+
+    if (isset($_POST['action']) && ($_POST['action'] == 'view')) {
+        $output='';
+        $data = $db->read();
+        if ($db->rowCount() > 0) {
+            $output .= '       <table class="table-sm table-bordered table table-striped">
                     <thead>
                     <tr class="text-center">
                         <th>ID</th>
@@ -21,8 +23,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'view')) {
                     </tr>
                     </thead>
                     <tbody>';
-        foreach ($data as $item) {
-            $output .= '
+            foreach ($data as $item) {
+                $output .= '
               <tr class="text-center text-secondary">
                         <td>' . $item['id'] . '</td>
                         <td>' . $item['name'] . '</td>
@@ -45,13 +47,25 @@ if (isset($_POST['action']) && ($_POST['action'] == 'view')) {
                             </a>&nbsp;&nbsp;
                         </td>';
 
-        }
-        $output .= '   </tbody>
+            }
+            $output .= '   </tbody>
                 </table>';
-        echo $output;
-    }
+            echo $output;
+        }
+
 
 }
+
+ if (isset($_POST['action']) && ($_POST['action'] == 'insert'))
+ {
+
+     $name=$_POST['name'];
+     $description=$_POST['description'];
+     $price=$_POST['price'];
+     $db->insert($name,$description,$price) ;
+
+ }
+
 
 /*
         <table class="table-sm table-bordered table table-striped">

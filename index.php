@@ -132,7 +132,7 @@
                             <input type="text"
                                    class="form-control"
                                    name="name"
-                                   value=""
+
                                    placeholder="Название товара">
                         </label>
                     </div>
@@ -141,7 +141,7 @@
                             <input type="text"
                                    class="form-control"
                                    name="description"
-                                   value=""
+
                                    placeholder="Описание товара">
                         </label>
                     </div>
@@ -149,8 +149,8 @@
                         <label>
                             <input type="text"
                                    class="form-control"
-                                   name="price"
-                                   value=""
+                                   name="price "
+
                                    placeholder="Цена товара">
                         </label>
                     </div>
@@ -163,6 +163,7 @@
                         <button type="submit"
                                 id="inset"
                                 name="inset"
+                                value="Сохранить"
                                 class="btn btn-primary">Сохранить
                         </button>
 
@@ -190,9 +191,9 @@
 <script>
     $(document).ready(function () {
 
-        f();
-
-        function f() {
+        // view ajax request
+        view();
+        function view() {
             $.ajax({
                 type: "POST",
                 url: 'controller/action.php',
@@ -239,6 +240,24 @@
 
             });
         }
+
+        //insert
+        $('#inset').click(event=>
+        {
+            if ($('#form-data')[0].checkValidity()) {
+                event.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: 'controller/action.php',
+                    data: $('#form-data').serialize() ,
+                    success:function (response) {
+                        console.log(response);
+
+                    }
+                })
+            }
+        })
+
     });
 </script>
 </body>

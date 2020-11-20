@@ -9,6 +9,7 @@ class dbConfig
     private string $pass = 'qwerty1234';
     private string $db = 'catalog';
     protected ?PDO $conn = null;
+    public string $timestamp;
 
 //Class constructor
     public function __construct()
@@ -23,13 +24,24 @@ class dbConfig
         }
     }
 
-    //creat function insert in SQL DB
+    //creat function insert in SQL DB ** add parseInt
     public function insert($name, $description, $price)
     {
+        // to get time-stamp for 'created' field
+        $created = $this->timestamp = date('Y-m-d H:i:s');
 
-        $sql = "INSERT INTO catalog.products(name, description, price) VALUE ($name,$description,$price)";
+        $sql = "INSERT INTO catalog.products SET name=:name, price=:price, description=:description,
+                 created=:created";
+
+
         $stmt = $this->conn->prepare($sql);// preparing a request
-        $stmt->execute(['name' => $name, 'description' => $description, 'price' => $price]);//array transfer
+        // bind values
+        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":price", $price);
+        $stmt->bindParam(":description", $description);
+        $stmt->bindParam(":created",  $created);
+        $stmt->execute();
+        //array transfer
         return true;
     }
 
@@ -46,7 +58,6 @@ class dbConfig
         }
         return $data;
     }
-
 
 
 //   creat function update
@@ -66,6 +77,7 @@ class dbConfig
         $stmt->execute(['id' => $id]);
         return true;
     }
+
     //rowCount
     public function rowCount()
     {
@@ -74,6 +86,7 @@ class dbConfig
         $stmt->execute();
         return $rowCount = $stmt->rowCount();
     }
+
 //get ID
     public function getProductsID($id)
     {
