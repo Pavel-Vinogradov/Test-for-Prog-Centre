@@ -58,47 +58,47 @@
     <!--    Table-->
     <div class="row">
         <div class="col-lg-12">
-            <div class="table-responsive"
+            <div class="table-catalogs"
                  id="catalogs">
-                <table class="table-sm table-bordered table table-striped">
-                    <thead>
-                    <tr class="text-center">
-                        <th>ID</th>
-                        <th>Название</th>
-                        <th>Описание</th>
-                        <th>Цена</th>
-                        <th>Время создание</th>
-                        <th>Изменения</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php for ($i=1;$i<10;$i++) { ?>
-                    <tr class="text-center text-secondary">
-                        <td>   <?php echo  $i?></td>
-                        <td><?php echo  $i?></td>
-                        <td><?php echo  $i?></td>
-                        <td><?php echo  $i?> руб</td>
-                        <td><?php echo  $i?></td>
-                        <td>
-
-                            <a href="#"
-                               class="text-success">
-                                <i class="fas fa-info-circle fa-lg"></i>
-                            </a>&nbsp;&nbsp;
-                            <a href="#"
-                               class="text-primary">
-                                <i class="fas fa-edit fa-lg"></i>
-                            </a>&nbsp;&nbsp;
-                            <a href="#"
-                               class="text-danger">
-                                <i class="fas fa-trash-alt fa-lg"></i>
-                            </a>&nbsp;&nbsp;
-                        </td>
-
-                    </tr>
-                    <?php }?>
-                    </tbody>
-                </table>
+                <!--                <table class="table-sm table-bordered table table-striped">-->
+                <!--                    <thead>-->
+                <!--                    <tr class="text-center">-->
+                <!--                        <th>ID</th>-->
+                <!--                        <th>Название</th>-->
+                <!--                        <th>Описание</th>-->
+                <!--                        <th>Цена</th>-->
+                <!--                        <th>Время создание</th>-->
+                <!--                        <th>Изменения</th>-->
+                <!--                    </tr>-->
+                <!--                    </thead>-->
+                <!--                    <tbody>-->
+                <!--                    --><?php //for ($i=1;$i<10;$i++) { ?>
+                <!--                    <tr class="text-center text-secondary">-->
+                <!--                        <td>   --><?php //echo  $i?><!--</td>-->
+                <!--                        <td>--><?php //echo  $i?><!--</td>-->
+                <!--                        <td>--><?php //echo  $i?><!--</td>-->
+                <!--                        <td>--><?php //echo  $i?><!-- руб</td>-->
+                <!--                        <td>--><?php //echo  $i?><!--</td>-->
+                <!--                        <td>-->
+                <!---->
+                <!--                            <a href="#"-->
+                <!--                               class="text-success">-->
+                <!--                                <i class="fas fa-info-circle fa-lg"></i>-->
+                <!--                            </a>&nbsp;&nbsp;-->
+                <!--                            <a href="#"-->
+                <!--                               class="text-primary">-->
+                <!--                                <i class="fas fa-edit fa-lg"></i>-->
+                <!--                            </a>&nbsp;&nbsp;-->
+                <!--                            <a href="#"-->
+                <!--                               class="text-danger">-->
+                <!--                                <i class="fas fa-trash-alt fa-lg"></i>-->
+                <!--                            </a>&nbsp;&nbsp;-->
+                <!--                        </td>-->
+                <!---->
+                <!--                    </tr>-->
+                <!--                    --><?php //}?>
+                <!--                    </tbody>-->
+                <!--                </table>-->
             </div>
         </div>
     </div>
@@ -125,8 +125,8 @@
             </div>
             <div class="modal-body">
                 <form action="controller/action.php"
-                        method="post"
-                        id="form-data">
+                      method="post"
+                      id="form-data">
                     <div class="form-group">
                         <label>
                             <input type="text"
@@ -189,54 +189,56 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('table').DataTable(
-            {
-                "language": {
-                    "processing": "Подождите...",
-                    "search": "Поиск:",
-                    "lengthMenu": "Показать _MENU_ записей",
-                    "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
-                    "infoEmpty": "Записи с 0 до 0 из 0 записей",
-                    "infoFiltered": "(отфильтровано из _MAX_ записей)",
-                    "infoPostFix": "",
-                    "loadingRecords": "Загрузка записей...",
-                    "zeroRecords": "Записи отсутствуют.",
-                    "emptyTable": "В таблице отсутствуют данные",
-                    "paginate": {
-                        "first": "Первая",
-                        "previous": "Предыдущая",
-                        "next": "Следующая",
-                        "last": "Последняя"
-                    },
-                    "aria": {
-                        "sortAscending": ": активировать для сортировки столбца по возрастанию",
-                        "sortDescending": ": активировать для сортировки столбца по убыванию"
-                    },
-                    "select": {
-                        "rows": {
-                            "_": "Выбрано записей: %d",
-                            "0": "Кликните по записи для выбора",
-                            "1": "Выбрана одна запись"
+
+        f();
+
+        function f() {
+            $.ajax({
+                type: "POST",
+                url: 'controller/action.php',
+                data: {action: 'view'},
+                success: function (responce) {
+                    // console.log(responce);
+                    $('#catalogs').html(responce);
+                    $('table').DataTable(
+                        {
+                            "language": {
+                                "processing": "Подождите...",
+                                "search": "Поиск:",
+                                "lengthMenu": "Показать _MENU_ записей",
+                                "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+                                "infoEmpty": "Записи с 0 до 0 из 0 записей",
+                                "infoFiltered": "(отфильтровано из _MAX_ записей)",
+                                "infoPostFix": "",
+                                "loadingRecords": "Загрузка записей...",
+                                "zeroRecords": "Записи отсутствуют.",
+                                "emptyTable": "В таблице отсутствуют данные",
+                                "paginate": {
+                                    "first": "Первая",
+                                    "previous": "Предыдущая",
+                                    "next": "Следующая",
+                                    "last": "Последняя"
+                                },
+                                "aria": {
+                                    "sortAscending": ": активировать для сортировки столбца по возрастанию",
+                                    "sortDescending": ": активировать для сортировки столбца по убыванию"
+                                },
+                                "select": {
+                                    "rows": {
+                                        "_": "Выбрано записей: %d",
+                                        "0": "Кликните по записи для выбора",
+                                        "1": "Выбрана одна запись"
+                                    }
+                                }
+                            },
+
+
                         }
-                    }
+                    );
                 },
 
-
-            }
-        );
-        f();
-      function f() {
-          $.ajax({
-              type: "POST",
-              url: 'controller/action.php',
-              data:{action:'view'},
-              success: function (responce)
-              {
-                  console.log(responce);
-              },
-
-          });
-      }
+            });
+        }
     });
 </script>
 </body>
