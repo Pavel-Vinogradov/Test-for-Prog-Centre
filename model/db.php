@@ -17,7 +17,7 @@ class dbConfig
         try {
 //           create connection
             $this->conn = new PDO("mysql:host=$this->host;dbname=$this->db", $this->name, $this->pass);
-            echo 'Соединение установленно';
+//
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
@@ -66,8 +66,22 @@ class dbConfig
         $stmt->execute(['id' => $id]);
         return true;
     }
-
-
+    //rowCount
+    public function rowCount()
+    {
+        $sql = "SELECT * FROM catalog.products";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $rowCount = $stmt->rowCount();
+    }
+//get ID
+    public function getProductsID($id)
+    {
+        $sql = "SELECT *FROM catalog.products WHERE id=$id";
+        $stmt = $this->conn->prepare($sql);// preparing a request
+        $stmt->execute(['id' => $id]);//array transfer
+        return $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 
 $db = new dbConfig();
