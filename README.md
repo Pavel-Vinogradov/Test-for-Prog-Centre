@@ -12,3 +12,11 @@
 - Добавить секции в каталог. Товар может относиться к нескольким секциям.
 - Добавить сортировку и фильтр по секции.
 - Сделать выгрузку в Excel. Можно использовать сторонние библиотеки. Каждый лист в Excel - одна секция со списком всех товаров, относящихся к ней
+
+
+###Использованные материалы и статьи 
+
+https://datatables.net/   
+http://www.itmathrepetitor.ru/javascript-nastroyka-plagina-datatable/
+
+https://adminnotes.info/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5/%D0%BF%D1%80%D0%BE%D1%81%D1%82%D0%BE%D0%B9-%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80-php-ajax-mysql.html
