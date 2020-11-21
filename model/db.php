@@ -17,7 +17,7 @@ class dbConfig
 //        create standard methods  error handling
         try {
 //           create connection
-            $this->conn = new PDO("mysql:host=$this->host;dbname=$this->db", $this->name, $this->pass);
+            $this->conn = new PDO("mysql:host=$this->host;dbname=$this->db;charset=utf8; ", $this->name, $this->pass);
 //
         } catch (PDOException $e) {
             echo $e->getMessage();
@@ -25,24 +25,26 @@ class dbConfig
     }
 
     //creat function insert in SQL DB ** add parseInt
-    public function insert($name, $description, $price)
+    public function insert(string $name, string  $description, float $price)
     {
         // to get time-stamp for 'created' field
+
         $created = $this->timestamp = date('Y-m-d H:i:s');
 
         $sql = "INSERT INTO catalog.products SET name=:name, price=:price, description=:description,
                  created=:created";
-
-
         $stmt = $this->conn->prepare($sql);// preparing a request
         // bind values
         $stmt->bindParam(":name", $name);
         $stmt->bindParam(":price", $price);
         $stmt->bindParam(":description", $description);
         $stmt->bindParam(":created",  $created);
-        $stmt->execute();
         //array transfer
-        return true;
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 // creat function read SQL
@@ -78,7 +80,7 @@ class dbConfig
         return true;
     }
 
-    //rowCount
+    // used for paging products
     public function rowCount()
     {
         $sql = "SELECT * FROM catalog.products";
@@ -97,5 +99,4 @@ class dbConfig
     }
 }
 
-$db = new dbConfig();
 

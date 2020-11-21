@@ -22,8 +22,8 @@
     <link rel="stylesheet"
           type="text/css"
           href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css"/>
-    <link rel='stylesheet'
-          href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+
     <style>
         label {
             display: block;
@@ -60,49 +60,13 @@
         <div class="col-lg-12">
             <div class="table-catalogs"
                  id="catalogs">
-                <!--                <table class="table-sm table-bordered table table-striped">-->
-                <!--                    <thead>-->
-                <!--                    <tr class="text-center">-->
-                <!--                        <th>ID</th>-->
-                <!--                        <th>Название</th>-->
-                <!--                        <th>Описание</th>-->
-                <!--                        <th>Цена</th>-->
-                <!--                        <th>Время создание</th>-->
-                <!--                        <th>Изменения</th>-->
-                <!--                    </tr>-->
-                <!--                    </thead>-->
-                <!--                    <tbody>-->
-                <!--                    --><?php //for ($i=1;$i<10;$i++) { ?>
-                <!--                    <tr class="text-center text-secondary">-->
-                <!--                        <td>   --><?php //echo  $i?><!--</td>-->
-                <!--                        <td>--><?php //echo  $i?><!--</td>-->
-                <!--                        <td>--><?php //echo  $i?><!--</td>-->
-                <!--                        <td>--><?php //echo  $i?><!-- руб</td>-->
-                <!--                        <td>--><?php //echo  $i?><!--</td>-->
-                <!--                        <td>-->
-                <!---->
-                <!--                            <a href="#"-->
-                <!--                               class="text-success">-->
-                <!--                                <i class="fas fa-info-circle fa-lg"></i>-->
-                <!--                            </a>&nbsp;&nbsp;-->
-                <!--                            <a href="#"-->
-                <!--                               class="text-primary">-->
-                <!--                                <i class="fas fa-edit fa-lg"></i>-->
-                <!--                            </a>&nbsp;&nbsp;-->
-                <!--                            <a href="#"-->
-                <!--                               class="text-danger">-->
-                <!--                                <i class="fas fa-trash-alt fa-lg"></i>-->
-                <!--                            </a>&nbsp;&nbsp;-->
-                <!--                        </td>-->
-                <!---->
-                <!--                    </tr>-->
-                <!--                    --><?php //}?>
-                <!--                    </tbody>-->
-                <!--                </table>-->
+
             </div>
         </div>
     </div>
 </div>
+
+
 <!-- Modal -->
 <div class="modal fade"
      id="exampleModal"
@@ -124,7 +88,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="controller/action.php"
+                <form
                       method="post"
                       id="form-data">
                     <div class="form-group">
@@ -132,8 +96,8 @@
                             <input type="text"
                                    class="form-control"
                                    name="name"
-
-                                   placeholder="Название товара">
+                                   value=""
+                                   placeholder="Название товара" required>
                         </label>
                     </div>
                     <div class="form-group">
@@ -141,17 +105,17 @@
                             <input type="text"
                                    class="form-control"
                                    name="description"
-
-                                   placeholder="Описание товара">
+                                      value=""
+                                   placeholder="Описание товара" required>
                         </label>
                     </div>
                     <div class="form-group">
                         <label>
                             <input type="text"
                                    class="form-control"
-                                   name="price "
-
-                                   placeholder="Цена товара">
+                                   name="price"
+                                   value=""
+                                   placeholder="Цена товара" required>
                         </label>
                     </div>
                     <div class="form-group">
@@ -161,10 +125,10 @@
                                 data-dismiss="modal">Закрыть
                         </button>
                         <button type="submit"
-                                id="inset"
-                                name="inset"
+                                id="insert"
+                                name="insert"
                                 value="Сохранить"
-                                class="btn btn-primary">Сохранить
+                                class="btn btn-danger">Сохранить
                         </button>
 
                     </div>
@@ -187,10 +151,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
         integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+
 <script>
     $(document).ready(function () {
-
+        let formData = $("#form").serialize();
+        console.log(formData);
         // view ajax request
         view();
         function view() {
@@ -242,19 +208,31 @@
         }
 
         //insert
-        $('#inset').click(event=>
+
+        $('#insert').click(event=>
         {
-            if ($('#form-data')[0].checkValidity()) {
+
+            if( $("#form-data")[0].checkValidity()) {
                 event.preventDefault();
+
                 $.ajax({
                     type: "POST",
                     url: 'controller/action.php',
-                    data: $('#form-data').serialize() ,
-                    success:function (response) {
-                        console.log(response);
-
+                    data: $('#form-data').serialize()+'&action=insert' ,
+                    success:function () {
+                         // console.log(response);
+                        Swal.fire(
+                            'Good job!',
+                            'You clicked the button!',
+                            'success'
+                        )
+                        $('#exampleModal').modal('hide');
+                        $('#form-data')[0].reset();
+                        view();
                     }
                 })
+
+
             }
         })
 
