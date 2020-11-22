@@ -89,6 +89,14 @@ class Action extends dbConfig
         }
 
     }
+    public function del()
+    {
+        if (isset($_POST['delId']))
+        {
+            $id=$_POST['delId'];
+            $this->delete($id);
+        }
+    }
 }
 
 $actionClass = new Action();
@@ -96,6 +104,7 @@ $actionClass->view();
 $actionClass->add();
 $actionClass->getId();
 $actionClass->edit();
+$actionClass->del();
 //if (isset($_POST['action']) && ($_POST['action'] == 'view')) {
 //    $output = '';
 //    $data = $db->read();

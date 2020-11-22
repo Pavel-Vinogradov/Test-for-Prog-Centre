@@ -52,7 +52,6 @@ $(document).ready(function () {
     }
 
     //insert
-
     $('#insert').click(event => {
 
         if ($("#form-data")[0].checkValidity()) {
@@ -77,7 +76,7 @@ $(document).ready(function () {
 
 
         }
-    })
+    });
     // getID
     $('body').on('click', '.editBtn', (event) => {
         event.preventDefault();
@@ -124,5 +123,51 @@ $(document).ready(function () {
 
 
         }
+    });
+    //delete
+    $('body').on('click', '.delBtn', event => {
+        event.preventDefault();
+        let getId = $(event.currentTarget).attr('id');
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: 'controller/action.php',
+                    data: {delId: getId},
+                    success: () => {
+                    },
+                });
+                swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                );
+                 view();
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                )
+            }
+        })
     })
 });
