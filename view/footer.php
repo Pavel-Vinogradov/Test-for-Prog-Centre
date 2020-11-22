@@ -1,6 +1,4 @@
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"-->
-<!--         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"-->
-<!--         crossorigin="anonymous"></script>-->
+
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript"
         src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>

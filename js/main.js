@@ -157,7 +157,7 @@ $(document).ready(function () {
                     'Your file has been deleted.',
                     'success'
                 );
-                 view();
+                view();
             } else if (
                 /* Read more about handling dismissals below */
                 result.dismiss === Swal.DismissReason.cancel
@@ -169,5 +169,9 @@ $(document).ready(function () {
                 )
             }
         })
-    })
+    });
+
+    //excel
+
+
 });
