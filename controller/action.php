@@ -89,12 +89,41 @@ class Action extends dbConfig
         }
 
     }
+
     public function del()
     {
-        if (isset($_POST['delId']))
-        {
-            $id=$_POST['delId'];
+        if (isset($_POST['delId'])) {
+            $id = $_POST['delId'];
             $this->delete($id);
+        }
+    }
+
+    public function excel()
+    {
+        if (isset($_GET['export']) && $_GET['export'] = 'excel') {
+            header("Content-Type:   application/vnd.ms-excel; charset=utf-8");
+            header("Content-Disposition: attachment; filename=products.xlsx");
+            header("Expires: 0");
+            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+            header("Cache-Control: private", false);
+
+            $this->read();
+            echo '<table border=1 cellspacing=0>';
+            echo '<tr>
+<td style="padding:2px 5px; mso-number-format:\@;">id</td>
+<td style="padding:2px 5px; mso-number-format:\@;">Наименование</td>
+<td style="padding:2px 5px; mso-number-format:\@;">Описание</td>
+<td style="padding:2px 5px; mso-number-format:\@;">Цена</td>
+</tr>';
+            foreach ($this->read() as $item) {
+                echo '<tr>
+<td>' . $item['id'] . '</td>
+<td>' . $item['name'] . '</td>
+<td>' . $item['description'] . '</td>
+<td>' . $item['price'] . '</td>
+</tr>    ';
+            }
+            echo '</table>';
         }
     }
 }
@@ -105,6 +134,7 @@ $actionClass->add();
 $actionClass->getId();
 $actionClass->edit();
 $actionClass->del();
+$actionClass->excel();
 //if (isset($_POST['action']) && ($_POST['action'] == 'view')) {
 //    $output = '';
 //    $data = $db->read();

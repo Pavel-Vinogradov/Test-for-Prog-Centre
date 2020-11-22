@@ -16,7 +16,7 @@
                 <i class="far fa-file-alt"></i>&nbsp;&nbsp;
                 Добавить товар
             </button>
-            <a href="#"
+            <a href="controller/action.php?export=excel"
                class="btn btn-success m-1 float-right"> <i class="far fa-file-excel"></i>&nbsp;&nbsp;Экспорт в Excel</a>
         </div>
     </div>
