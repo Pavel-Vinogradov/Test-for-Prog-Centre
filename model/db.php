@@ -25,7 +25,7 @@ class dbConfig
     }
 
     //creat function insert in SQL DB ** add parseInt
-    public function insert(string $name, string  $description, float $price)
+    public function insert(string $name, string $description, float $price)
     {
         // to get time-stamp for 'created' field
 
@@ -38,7 +38,7 @@ class dbConfig
         $stmt->bindParam(":name", $name);
         $stmt->bindParam(":price", $price);
         $stmt->bindParam(":description", $description);
-        $stmt->bindParam(":created",  $created);
+        $stmt->bindParam(":created", $created);
         //array transfer
         if ($stmt->execute()) {
             return true;
@@ -65,10 +65,22 @@ class dbConfig
 //   creat function update
     public function update($id, $name, $description, $price)
     {
-        $sql = "UPDATE catalog.products SET name=$name , description=$description, price=$price WHERE id=$id ";
+        $sql = "UPDATE catalog.products SET name=:name , price=:price, description=:description WHERE id=:id ";
         $stmt = $this->conn->prepare($sql);// preparing a request
-        $stmt->execute(['id' => $id, 'name' => $name, 'description' => $description, 'price' => $price]);//array transfer
-        return true;
+        // bind parameters
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':id', $id);
+
+        // execute the query
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
+
     }
 
 // creat function Delete
@@ -98,5 +110,8 @@ class dbConfig
         return $result = $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
+
+
+$db = new dbConfig();
 
 
